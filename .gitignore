@@ -1,0 +1,14 @@
+node_modules/
+.next/
+.env*.local
+*.tsbuildinfo
+.DS_Store
+
+.claude/
+SK Alif Hosain Portfolio (offline).html
+
+.env
+
+# Unused source assets (replaced by public/frames + optimized webp)
+public/ezgif-split/
+public/Assets/kling_*.webp
