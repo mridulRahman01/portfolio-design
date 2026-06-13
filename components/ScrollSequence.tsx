@@ -164,8 +164,6 @@ export function ScrollSequence() {
   /* ── Draw frame 0 once preload finishes ── */
   useEffect(() => { if (ready) draw(0); }, [ready, draw]);
 
-  const pct = Math.round((loadedCount / TOTAL) * 100);
-
   return (
     <section ref={wrapRef} style={{ height: HEIGHT, padding: 0 }} className="relative">
 
@@ -200,52 +198,6 @@ export function ScrollSequence() {
             backgroundSize: '180px 180px',
           }}
         />
-
-        {/* ── LOADING OVERLAY ── */}
-        <motion.div
-          className="absolute inset-0 z-20 flex flex-col items-center justify-center gap-5"
-          style={{ background: BG }}
-          animate={{ opacity: ready ? 0 : 1 }}
-          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-          onAnimationComplete={() => {
-            const el = document.getElementById('seq-loader');
-            if (el && ready) el.style.display = 'none';
-          }}
-          id="seq-loader"
-        >
-          {/* Monogram */}
-          <div className="flex items-center gap-2.5 mb-5 select-none">
-            <div className="w-8 h-8 rounded-xl border border-[#00F5B8]/28 flex items-center justify-center">
-              <span className="font-mono text-[10px] font-bold text-[#00F5B8] tracking-widest">AH</span>
-            </div>
-            <span className="font-mono text-[9px] tracking-[0.40em] uppercase text-white/22">Portfolio</span>
-          </div>
-
-          {/* Dual-ring spinner */}
-          <div className="relative h-[52px] w-[52px]">
-            <div className="absolute inset-0 rounded-full border-2 border-white/6" />
-            <div className="absolute inset-0 rounded-full border-2 border-transparent border-t-[#00F5B8] animate-spin" />
-            <div className="absolute inset-[6px] rounded-full border border-white/8" />
-          </div>
-
-          {/* Percentage counter */}
-          <div className="flex items-baseline gap-0.5">
-            <span className="font-mono text-[32px] font-thin text-white/65 tabular-nums leading-none">{pct}</span>
-            <span className="font-mono text-sm text-white/22">%</span>
-          </div>
-
-          {/* Progress bar */}
-          <div className="w-48 h-px rounded overflow-hidden bg-white/8">
-            <div
-              className="h-full rounded bg-gradient-to-r from-[#00F5B8] to-[#FF7A18] transition-[width] duration-200"
-              style={{ width: `${pct}%` }}
-            />
-          </div>
-
-          <span className="font-mono text-[9px] tracking-[0.38em] uppercase text-white/22">
-            {loadedCount} / {TOTAL} frames
-          </span>
-        </motion.div>
 
         {/* ══════════════════════════════════════════════════════
             TEXT LAYERS — three cinematic depth planes
