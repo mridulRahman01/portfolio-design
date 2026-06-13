@@ -1393,52 +1393,103 @@ input[type='datetime-local']::-webkit-calendar-picker-indicator { filter: invert
 }
 
 /* ══════════════════════════════════════════════════════════════
-   HERO PORTRAIT — clean photo presentation, no decorations
+   HERO PORTRAIT — layered composition: glow + rings + icons + cutout
+   (rings & floating icons sit BEHIND the client cutout, peeking out)
 ══════════════════════════════════════════════════════════════ */
 
 /* Text column always wins the stacking order */
 .hero-copy { position: relative; z-index: 4; }
 
-/* Portrait photo: enhanced rendering with a deep blend into the
-   background on the left so it never fights the headline */
-.hero-bg { width: 54%; right: -2%; }
-.hero-bg-img {
-  opacity: 0.96;
-  filter: saturate(1.1) contrast(1.07) brightness(1.02);
-}
-.hero-bg-fade {
-  background:
-    linear-gradient(to right, var(--bg) 6%, rgba(18, 18, 18, .9) 22%, rgba(18, 18, 18, .45) 42%, transparent 68%),
-    linear-gradient(to top, var(--bg) 6%, transparent 50%),
-    linear-gradient(to bottom, var(--bg) 0%, transparent 26%);
-}
-
-/* Cinematic back-glow behind the subject — warm rim on the right,
-   brand green from the left, like a studio two-light setup */
-.halo {
-  left: 60%;
-  top: 40%;
-  width: 95%;
-  opacity: .55;
-  background:
-    radial-gradient(circle at 64% 36%, rgba(255, 122, 24, .34), transparent 58%),
-    radial-gradient(circle at 30% 62%, rgba(0, 245, 184, .22), transparent 60%);
-  filter: blur(48px);
-}
-
-/* Soft scrim behind the copy improves text contrast over any photo */
+/* Soft scrim behind the copy keeps the headline crisp */
 .hero-copy::before {
   content: "";
   position: absolute;
   inset: -60px -80px -40px -120px;
   z-index: -1;
-  background: radial-gradient(70% 60% at 35% 45%, rgba(18, 18, 18, .82), transparent 75%);
+  background: radial-gradient(70% 60% at 35% 45%, rgba(18, 18, 18, .7), transparent 75%);
   pointer-events: none;
 }
 
+/* The stage holds every layer. Centering uses auto-margins / inset (NOT
+   transform) so the mouse-parallax JS — which writes element.style.transform
+   on [data-depth] nodes — never breaks the layout. Float/spin animations
+   live on inner wrappers for the same reason. */
+.hero-visual { min-height: 620px; overflow: visible; }
+.portrait-stage {
+  position: relative;
+  width: 100%;
+  max-width: 580px;
+  aspect-ratio: 4 / 5;
+  margin-inline: auto;
+}
+.portrait-stage > * { position: absolute; will-change: transform; }
+
+/* Layer 0 — two-light ambient glow (green left, orange right) */
+.hero-glow {
+  inset: -14% -10%;
+  z-index: 0;
+  background:
+    radial-gradient(38% 44% at 24% 52%, rgba(0, 245, 184, .45), transparent 70%),
+    radial-gradient(42% 48% at 78% 46%, rgba(255, 122, 24, .42), transparent 72%);
+  filter: blur(44px);
+  opacity: .95;
+}
+
+/* Layer 1 — concentric rings, teal→orange, via a masked gradient.
+   Centered with left/top + negative % margin (margin % is relative to the
+   parent WIDTH, and the ring is square, so -49% margin = half its height). */
+.hero-rings {
+  width: 98%; aspect-ratio: 1;
+  left: 1%; top: 50%; margin-top: -49%;
+  z-index: 1;
+  background: linear-gradient(100deg,
+    #00F5B8 0%, #15d4ab 32%, #9a9560 50%, #ff8a2c 68%, #FF7A18 100%);
+  -webkit-mask: repeating-radial-gradient(circle at center,
+    #000 0 2px, transparent 2.1px 9%);
+  mask: repeating-radial-gradient(circle at center,
+    #000 0 2px, transparent 2.1px 9%);
+  opacity: .55;
+}
+
+/* Layer 2 — floating 3D icons, behind the person, gently bobbing.
+   Outer node carries parallax; inner wrapper carries the bob animation. */
+.hero-ico { z-index: 2; }
+.hero-ico-inner { filter: drop-shadow(0 16px 30px rgba(0, 0, 0, .55)); }
+.hero-ico-inner img { width: 100%; height: auto; display: block; }
+.ico-chart  { width: 24%; left: -3%;  top: 50%; }
+.ico-target { width: 22%; right: 0%;  top: 13%; }
+.ico-people { width: 26%; right: -4%; bottom: 4%; }
+.ico-chart  .hero-ico-inner { animation: heroFloat 6s ease-in-out infinite; }
+.ico-target .hero-ico-inner { animation: heroFloat 7s ease-in-out infinite .8s; }
+.ico-people .hero-ico-inner { animation: heroFloat 5.4s ease-in-out infinite 1.2s; }
+@keyframes heroFloat {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-15px); }
+}
+
+/* Layer 3 — the client cutout, in front of everything.
+   Centered horizontally with auto margins (no transform), anchored bottom. */
+.hero-person {
+  left: 0; right: 0; bottom: 0;
+  margin-inline: auto;
+  width: 94%;
+  z-index: 3;
+}
+.hero-person img {
+  width: 100%; height: auto; display: block;
+  filter: saturate(1.06) contrast(1.04) drop-shadow(0 26px 50px rgba(0, 0, 0, .55));
+}
+
+/* Hide the old full-bleed photo nodes if present */
+.hero-bg { display: none; }
+
 @media (max-width: 1024px) {
-  .hero-bg { width: 108%; right: -4%; }
+  .hero-visual { min-height: 480px; }
+  .portrait-stage { max-width: 440px; }
   .hero-copy::before { display: none; }
-  .halo { opacity: .3; }
+}
+@media (max-width: 560px) {
+  .ico-chart  { width: 26%; left: -4%; }
+  .ico-people { width: 28%; right: -6%; }
 }
 

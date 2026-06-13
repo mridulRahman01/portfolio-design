@@ -53,12 +53,6 @@ export function Hero({ data, socials }: { data: HeroContent; socials: SocialItem
 
   return (
     <header className="hero-section" id="home" ref={heroRef}>
-      <div className="hero-bg" data-depth="0.15">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img className="hero-bg-img" src="/Assets/hero-bg.webp" alt="" />
-        <div className="hero-bg-fade" />
-      </div>
-
       <div className="hero-inner container">
         <div className="hero-grid">
           <div className="hero-copy">
@@ -106,7 +100,33 @@ export function Hero({ data, socials }: { data: HeroContent; socials: SocialItem
 
           <div className="hero-visual reveal d2">
             <div className="portrait-stage" id="portraitStage" ref={stageRef}>
-              <div className="halo" data-depth="0.35" />
+              {/* Back-to-front layered composition */}
+              <div className="hero-glow" data-depth="0.22" />
+              <div className="hero-rings" data-depth="0.4" />
+
+              <div className="hero-ico ico-chart" data-depth="0.7">
+                <div className="hero-ico-inner">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src="/Assets/ChatGPT Image Jun 4, 2026, 05_25_13 AM.webp" alt="" aria-hidden="true" loading="lazy" />
+                </div>
+              </div>
+              <div className="hero-ico ico-target" data-depth="0.85">
+                <div className="hero-ico-inner">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src="/Assets/ChatGPT Image Jun 4, 2026, 05_25_50 AM.webp" alt="" aria-hidden="true" loading="lazy" />
+                </div>
+              </div>
+              <div className="hero-ico ico-people" data-depth="0.6">
+                <div className="hero-ico-inner">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src="/Assets/ChatGPT Image Jun 4, 2026, 05_28_10 AM.webp" alt="" aria-hidden="true" loading="lazy" />
+                </div>
+              </div>
+
+              <div className="hero-person" data-depth="0.1">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/Assets/hero-person.webp" alt="Alif Hosain — Affiliate Marketer" />
+              </div>
             </div>
           </div>
         </div>
