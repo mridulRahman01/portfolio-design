@@ -21,7 +21,7 @@ export default async function ServicesContentPage() {
           { name: 'problem', label: 'Problem', kind: 'textarea' },
           { name: 'solution', label: 'Solution', kind: 'textarea' },
           { name: 'result', label: 'Result', kind: 'textarea' },
-          { name: 'icon', label: 'Icon image URL', kind: 'text', hint: 'Upload in Media Library, paste URL' },
+          { name: 'icon', label: 'Icon image', kind: 'image', folder: 'services', hint: 'Upload a 3D icon (optional)' },
           { name: 'accent', label: 'Accent color', kind: 'select', options: ['green', 'orange'], half: true },
           { name: 'order', label: 'Order', kind: 'number', half: true },
           { name: 'visible', label: 'Visible on site', kind: 'checkbox' },

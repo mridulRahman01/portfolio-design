@@ -1,16 +1,18 @@
 'use client';
 
-import { useState, useTransition } from 'react';
+import { useState, useEffect, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
 import { Card, Field, inputCls, Btn, ConfirmDelete, Badge } from '@/components/admin/ui';
+import { ImageField } from '@/components/admin/ImageField';
 
 export type FieldDef = {
   name: string;
   label: string;
-  kind: 'text' | 'textarea' | 'number' | 'checkbox' | 'select';
+  kind: 'text' | 'textarea' | 'number' | 'checkbox' | 'select' | 'image';
   options?: string[];
   hint?: string;
   half?: boolean;
+  folder?: string;
 };
 
 type Row = Record<string, unknown> & { id: string };
@@ -32,13 +34,28 @@ export function CrudList({ rows, fields, titleKey, upsert, remove, addLabel }: {
   const [editing, setEditing] = useState<Row | 'new' | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [pending, start] = useTransition();
+  // Controlled values for image-upload fields (ImageField manages its own UI)
+  const [images, setImages] = useState<Record<string, string>>({});
+
+  const imageFields = fields.filter(f => f.kind === 'image');
+
+  // Seed image field values whenever a row opens for editing
+  useEffect(() => {
+    if (editing === null) return;
+    const src: Record<string, unknown> = editing === 'new' ? {} : (editing as Row);
+    const seed: Record<string, string> = {};
+    for (const f of imageFields) seed[f.name] = String(src[f.name] ?? '');
+    setImages(seed);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [editing]);
 
   function submit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const fd = new FormData(e.currentTarget);
     const data: Record<string, unknown> = {};
     for (const f of fields) {
-      if (f.kind === 'checkbox') data[f.name] = fd.get(f.name) === 'on';
+      if (f.kind === 'image') data[f.name] = images[f.name] ?? '';
+      else if (f.kind === 'checkbox') data[f.name] = fd.get(f.name) === 'on';
       else if (f.kind === 'number') data[f.name] = Number(fd.get(f.name) ?? 0);
       else data[f.name] = (fd.get(f.name) as string) ?? '';
     }
@@ -72,6 +89,14 @@ export function CrudList({ rows, fields, titleKey, upsert, remove, addLabel }: {
                     />
                     {f.label}
                   </label>
+                ) : f.kind === 'image' ? (
+                  <ImageField
+                    label={f.label}
+                    hint={f.hint}
+                    folder={f.folder ?? 'content'}
+                    value={images[f.name] ?? ''}
+                    onChange={url => setImages(prev => ({ ...prev, [f.name]: url }))}
+                  />
                 ) : (
                   <Field label={f.label} hint={f.hint}>
                     {f.kind === 'textarea' ? (

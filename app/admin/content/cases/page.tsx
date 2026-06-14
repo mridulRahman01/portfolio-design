@@ -35,7 +35,7 @@ export default async function CasesContentPage() {
             hint: 'One per line: label | value | animatedNumber | suffix — e.g. “ROI | 320% | 320 | %” (last two optional)',
           },
           { name: 'url', label: 'Display URL (browser bar)', kind: 'text', half: true },
-          { name: 'image', label: 'Screenshot URL (optional)', kind: 'text', half: true },
+          { name: 'image', label: 'Screenshot image (optional)', kind: 'image', folder: 'cases' },
           { name: 'fill', label: 'Progress bar % (0–100)', kind: 'number', half: true },
           { name: 'accent', label: 'Accent color', kind: 'select', options: ['green', 'orange'], half: true },
           { name: 'order', label: 'Order', kind: 'number', half: true },

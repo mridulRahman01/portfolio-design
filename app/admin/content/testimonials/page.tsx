@@ -20,7 +20,7 @@ export default async function TestimonialsContentPage() {
           { name: 'quote', label: 'Quote', kind: 'textarea' },
           { name: 'name', label: 'Client name', kind: 'text', half: true },
           { name: 'company', label: 'Role & company', kind: 'text', half: true },
-          { name: 'avatar', label: 'Avatar image URL (optional)', kind: 'text', hint: 'Initials are shown if empty' },
+          { name: 'avatar', label: 'Client photo', kind: 'image', folder: 'testimonials', hint: 'Upload a photo — initials are shown if left empty' },
           { name: 'result', label: 'Result chip (e.g. “3× ROI in 90 days”)', kind: 'text', half: true },
           { name: 'rating', label: 'Rating (1–5)', kind: 'number', half: true },
           { name: 'order', label: 'Order', kind: 'number', half: true },

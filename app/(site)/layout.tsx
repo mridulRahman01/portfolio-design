@@ -2,6 +2,7 @@ import { Nav } from '@/components/Nav';
 import { CursorGlow } from '@/components/CursorGlow';
 import { RevealObserver } from '@/components/RevealObserver';
 import { TrackView } from '@/components/TrackView';
+import { ScrollProgress } from '@/components/ScrollProgress';
 import { getSeo } from '@/lib/content';
 
 export default async function SiteLayout({ children }: { children: React.ReactNode }) {
@@ -29,6 +30,7 @@ export default async function SiteLayout({ children }: { children: React.ReactNo
       <div className="bg-field"><div className="bg-grid" /></div>
       <div className="grain" />
       <CursorGlow />
+      <ScrollProgress />
       <Nav />
       <RevealObserver />
       <TrackView />
