@@ -1560,6 +1560,162 @@ body.intro-on .scroll-progress { opacity: 0; }
 }
 
 /* ══════════════════════════════════════════════════════════════
+   CMS — 3D "View Live Portfolio" button
+══════════════════════════════════════════════════════════════ */
+
+.vpb-wrap { perspective: 600px; }
+
+.vpb {
+  border: none; background: transparent; cursor: pointer; padding: 0;
+  border-radius: 14px;
+  animation: vpbPop .5s var(--ease-out) both;
+}
+.vpb:disabled { cursor: progress; }
+
+.vpb-face {
+  position: relative;
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 13px 22px; border-radius: 14px;
+  font-weight: 800; font-size: 14px; letter-spacing: .01em; white-space: nowrap;
+  color: #03110c;
+  background: linear-gradient(135deg, #00F5B8 0%, #2ce0b3 45%, #10c79a 100%);
+  box-shadow:
+    0 6px 0 #067a5c,
+    0 14px 24px rgba(0, 245, 184, .34),
+    inset 0 1px 0 rgba(255, 255, 255, .5);
+  transform: translateY(0);
+  transition: transform .16s var(--ease-out), box-shadow .16s var(--ease-out), filter .2s;
+  overflow: hidden;
+}
+/* idle breathing glow */
+.vpb:not(:disabled) .vpb-face { animation: vpbGlow 2.6s ease-in-out infinite; }
+
+.vpb:hover:not(:disabled) .vpb-face {
+  transform: translateY(-3px);
+  box-shadow:
+    0 9px 0 #067a5c,
+    0 22px 36px rgba(0, 245, 184, .5),
+    inset 0 1px 0 rgba(255, 255, 255, .55);
+  filter: brightness(1.05);
+  animation: none;
+}
+.vpb:active:not(:disabled) .vpb-face {
+  transform: translateY(3px);
+  box-shadow:
+    0 2px 0 #067a5c,
+    0 8px 14px rgba(0, 245, 184, .3),
+    inset 0 1px 0 rgba(255, 255, 255, .4);
+  animation: none;
+}
+
+.vpb-icon { display: inline-flex; }
+.vpb-arrow { display: inline-flex; transition: transform .3s var(--ease-out); }
+.vpb:hover:not(:disabled) .vpb-arrow { transform: translateX(4px); }
+
+/* shine sweep on hover */
+.vpb-shine {
+  position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+  background: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, .55) 50%, transparent 70%);
+  transform: translateX(-130%);
+}
+.vpb:hover:not(:disabled) .vpb-shine { animation: vpbShine .9s var(--ease-out); }
+
+/* loading state */
+.vpb.is-loading .vpb-face { background: linear-gradient(135deg, #0fae89, #0a8f70); }
+.vpb-spinner {
+  width: 18px; height: 18px; border-radius: 50%;
+  border: 2px solid rgba(3, 17, 12, .25); border-top-color: #03110c;
+  display: inline-block; animation: spin 0.7s linear infinite;
+}
+
+@keyframes vpbPop {
+  from { opacity: 0; transform: translateY(8px) scale(.96); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes vpbGlow {
+  0%, 100% { box-shadow: 0 6px 0 #067a5c, 0 14px 24px rgba(0,245,184,.30), inset 0 1px 0 rgba(255,255,255,.5); }
+  50%      { box-shadow: 0 6px 0 #067a5c, 0 16px 30px rgba(0,245,184,.52), inset 0 1px 0 rgba(255,255,255,.5); }
+}
+@keyframes vpbShine { to { transform: translateX(130%); } }
+
+@media (max-width: 640px) {
+  .vpb-text { display: none; }
+  .vpb-face { padding: 13px 16px; }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   PORTFOLIO SKELETON LOADER — route-transition fallback
+══════════════════════════════════════════════════════════════ */
+
+.skel {
+  position: relative; z-index: 2;
+  max-width: var(--maxw); margin: 0 auto;
+  padding: 150px 28px 60px;
+  min-height: 100vh;
+}
+.skel-box {
+  background: linear-gradient(100deg,
+    rgba(255, 255, 255, .035) 28%,
+    rgba(255, 255, 255, .09) 50%,
+    rgba(255, 255, 255, .035) 72%);
+  background-size: 220% 100%;
+  border-radius: 10px;
+  animation: skelShimmer 1.5s ease-in-out infinite;
+}
+@keyframes skelShimmer { to { background-position: -220% 0; } }
+
+.skel-hero {
+  display: grid; grid-template-columns: 1.02fr .98fr; gap: 40px; align-items: center;
+}
+.skel-copy { display: flex; flex-direction: column; gap: 16px; }
+.skel-copy .skel-h { height: 46px; border-radius: 12px; }
+.skel-lines { display: flex; flex-direction: column; gap: 10px; margin-top: 8px; }
+.skel-actions { display: flex; gap: 16px; margin-top: 18px; flex-wrap: wrap; }
+
+.skel-visual {
+  position: relative; min-height: 460px;
+  display: flex; align-items: center; justify-content: center;
+}
+.skel-ring {
+  position: absolute; width: 78%; aspect-ratio: 1; border-radius: 50%;
+  border: 1px dashed rgba(0, 245, 184, .14);
+  animation: spin 24s linear infinite;
+}
+.skel-portrait {
+  width: 78%; aspect-ratio: 4 / 5; border-radius: 24px;
+}
+
+.skel-stats {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-top: 56px;
+}
+
+.skel-spinner-wrap {
+  display: flex; flex-direction: column; align-items: center; gap: 14px; margin-top: 60px;
+}
+.skel-spinner {
+  width: 40px; height: 40px; border-radius: 50%;
+  border: 3px solid rgba(255, 255, 255, .08); border-top-color: var(--green);
+  animation: spin .8s linear infinite;
+}
+.skel-spinner-label {
+  font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted-2);
+}
+
+@media (max-width: 1024px) {
+  .skel-hero { grid-template-columns: 1fr; }
+  .skel-visual { order: -1; min-height: 320px; }
+  .skel-stats { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 560px) {
+  .skel { padding-top: 120px; }
+  .skel-stats { grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skel-box, .vpb:not(:disabled) .vpb-face { animation: none !important; }
+}
+
+/* ══════════════════════════════════════════════════════════════
    HERO PORTRAIT — layered composition: glow + rings + icons + cutout
    (rings & floating icons sit BEHIND the client cutout, peeking out)
 ══════════════════════════════════════════════════════════════ */

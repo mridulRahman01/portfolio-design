@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import type { DashboardStats } from '@/lib/dashboard';
 import { Card, BarChart, Badge } from '@/components/admin/ui';
+import { ViewPortfolioButton } from '@/components/admin/ViewPortfolioButton';
 
 const POLL_MS = 10_000;
 
@@ -108,10 +109,13 @@ export function LiveDashboard({ initial }: { initial: DashboardStats }) {
             Auto-refreshes every 10 seconds · last update {updatedAt}
           </p>
         </div>
-        <Link href="/admin/blogs/new"
-          className="rounded-xl bg-gradient-to-br from-[#00F5B8] to-[#19d6a8] px-4 py-2.5 text-[13.5px] font-bold text-[#03110c] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_10px_32px_rgba(0,245,184,0.45)] active:scale-[0.97]">
-          + New Post
-        </Link>
+        <div className="flex items-center gap-3">
+          <ViewPortfolioButton />
+          <Link href="/admin/blogs/new"
+            className="rounded-xl bg-gradient-to-br from-[#00F5B8] to-[#19d6a8] px-4 py-2.5 text-[13.5px] font-bold text-[#03110c] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_10px_32px_rgba(0,245,184,0.45)] active:scale-[0.97]">
+            + New Post
+          </Link>
+        </div>
       </div>
 
       {/* KPI row 1 — traffic */}
