@@ -15,7 +15,7 @@ function done() {
 
 /* ── Homepage JSON sections (hero / about / footer / cta) ── */
 
-const SECTION_KEYS = ['hero', 'about', 'footer', 'cta', 'results', 'intro'] as const;
+const SECTION_KEYS = ['hero', 'about', 'footer', 'cta', 'results', 'intro', 'cv'] as const;
 
 export async function saveSection(key: (typeof SECTION_KEYS)[number], value: unknown) {
   const user = await requireCapability('content:manage');

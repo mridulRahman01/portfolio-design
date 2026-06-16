@@ -94,6 +94,8 @@ export type SocialItem = { platform: string; url: string };
 
 export type IntroContent = { enabled: boolean };
 
+export type CvContent = { url: string };
+
 export type ResultsContent = {
   eyebrow: string;
   title: string;
@@ -187,7 +189,7 @@ export const DEFAULT_SERVICES: ServiceItem[] = [
     problem: 'Ad budgets burn fast when campaigns launch without strategy, structure, or scaling discipline.',
     solution: 'End-to-end setup, management, and scaling of high-converting campaigns on Meta (Facebook) and Google Ads — strategic audience targeting and complete budget optimization.',
     result: 'Maximized Return on Ad Spend (ROAS) and sustainable revenue growth for e-commerce and digital businesses.',
-    icon: '/Assets/ChatGPT Image Jun 4, 2026, 05_25_50 AM.webp',
+    icon: '/Assets/icons/target.png',
     accent: 'green',
   },
   {
@@ -196,7 +198,7 @@ export const DEFAULT_SERVICES: ServiceItem[] = [
     problem: 'App installs are expensive — and most downloads never become active users.',
     solution: 'Data-driven acquisition funnels for mobile apps and gaming projects, built to lower Cost Per Install and attract high-quality store downloads — tracked with Firebase and Google Play Console.',
     result: 'Lower CPI, more high-quality installs, and growing monthly active users (MAU).',
-    icon: '/Assets/ChatGPT Image Jun 4, 2026, 05_44_37 AM.webp',
+    icon: '/Assets/icons/rocket.png',
     accent: 'orange',
   },
   {
@@ -205,7 +207,7 @@ export const DEFAULT_SERVICES: ServiceItem[] = [
     problem: "Without clean data, you can't tell which ads make money and which quietly waste it.",
     solution: 'End-to-end conversion tracking, custom events, and pixel integrations — Google Analytics 4, Meta Pixel — wired across your entire funnel.',
     result: 'Every dollar of ad spend accurately tracked, analyzed, and optimized for better performance.',
-    icon: '/Assets/ChatGPT Image Jun 4, 2026, 05_41_25 AM.webp',
+    icon: '/Assets/icons/chart.png',
     accent: 'green',
   },
   {
@@ -214,7 +216,7 @@ export const DEFAULT_SERVICES: ServiceItem[] = [
     problem: 'Driving traffic is only half the battle — most visitors leave without buying.',
     solution: 'User-behavior analysis and optimization of landing pages, store listings, and ad creatives to transform cold traffic into paying customers.',
     result: 'The highest possible conversion rate from your existing marketing budget.',
-    icon: '/Assets/ChatGPT Image Jun 4, 2026, 05_25_13 AM.webp',
+    icon: '/Assets/icons/funnel.png',
     accent: 'orange',
   },
 ];
@@ -334,6 +336,8 @@ export const DEFAULT_SKILL_GROUPS: SkillGroupItem[] = [
 ];
 
 export const DEFAULT_INTRO: IntroContent = { enabled: true };
+
+export const DEFAULT_CV: CvContent = { url: '' };
 
 export const DEFAULT_RESULTS: ResultsContent = {
   eyebrow: 'Past Work',

@@ -12,24 +12,24 @@ import { CTA } from '@/components/CTA';
 import { Footer } from '@/components/Footer';
 import {
   getHero, getAbout, getServices, getCases, getTestimonials,
-  getSkillGroups, getSocials, getFooter, getCta, getLatestPosts, getResults, getIntro,
+  getSkillGroups, getSocials, getFooter, getCta, getLatestPosts, getResults, getIntro, getCv,
 } from '@/lib/content';
 
 // ISR: rebuild at most once per minute; server actions also revalidate on save
 export const revalidate = 60;
 
 export default async function Home() {
-  const [hero, about, services, cases, testimonials, skillGroups, socials, footer, cta, posts, results, intro] =
+  const [hero, about, services, cases, testimonials, skillGroups, socials, footer, cta, posts, results, intro, cv] =
     await Promise.all([
       getHero(), getAbout(), getServices(), getCases(), getTestimonials(),
-      getSkillGroups(), getSocials(), getFooter(), getCta(), getLatestPosts(3), getResults(), getIntro(),
+      getSkillGroups(), getSocials(), getFooter(), getCta(), getLatestPosts(3), getResults(), getIntro(), getCv(),
     ]);
 
   return (
     <>
       {intro.enabled && <ScrollSequence />}
       <div className="wrap">
-        <Hero data={hero} socials={socials} />
+        <Hero data={hero} socials={socials} cvUrl={cv.url} />
         <About data={about} />
         <Services items={services} />
         <Cases items={cases} />
@@ -38,7 +38,7 @@ export default async function Home() {
         <Tools />
         <Testimonials items={testimonials} />
         <Blog posts={posts} />
-        <CTA data={cta} />
+        <CTA data={cta} cvUrl={cv.url} />
         <Footer data={footer} socials={socials} />
       </div>
     </>

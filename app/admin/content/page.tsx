@@ -2,6 +2,7 @@ import Link from 'next/link';
 
 const SECTIONS = [
   { href: '/admin/content/intro', title: 'Intro Animation', desc: 'Turn the cinematic scroll intro on/off' },
+  { href: '/admin/content/cv', title: 'CV / Resume', desc: 'Upload the CV opened by the strategy-call button' },
   { href: '/admin/content/hero', title: 'Hero', desc: 'Headline, CTAs, trust bar, stats' },
   { href: '/admin/content/about', title: 'About', desc: 'Story, timeline, achievements' },
   { href: '/admin/content/services', title: 'Services', desc: 'Problem → Solution → Result cards' },

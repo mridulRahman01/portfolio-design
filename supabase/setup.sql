@@ -226,6 +226,13 @@ begin
   end loop;
 end $$;
 
+-- ── Public storage bucket for the CV/resume ──────────────────────
+-- The "Book a Free Strategy Call" button opens the file uploaded here.
+insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+values ('cv', 'cv', true, 15728640,
+        array['application/pdf','image/png','image/jpeg','image/webp'])
+on conflict (id) do nothing;
+
 -- ════════════════════════════════════════════════════════════════
 -- SEED DATA
 -- ════════════════════════════════════════════════════════════════

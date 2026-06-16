@@ -4,10 +4,10 @@ import { sb } from '@/lib/db';
 import {
   DEFAULT_HERO, DEFAULT_ABOUT, DEFAULT_FOOTER, DEFAULT_CTA,
   DEFAULT_SERVICES, DEFAULT_CASES, DEFAULT_TESTIMONIALS,
-  DEFAULT_SKILL_GROUPS, DEFAULT_SOCIALS, DEFAULT_SEO, DEFAULT_RESULTS, DEFAULT_INTRO,
+  DEFAULT_SKILL_GROUPS, DEFAULT_SOCIALS, DEFAULT_SEO, DEFAULT_RESULTS, DEFAULT_INTRO, DEFAULT_CV,
   type HeroContent, type AboutContent, type FooterContent, type CtaContent,
   type ServiceItem, type CaseItem, type TestimonialItem, type SkillGroupItem,
-  type SocialItem, type BlogCard, type ResultsContent, type IntroContent,
+  type SocialItem, type BlogCard, type ResultsContent, type IntroContent, type CvContent,
 } from '@/lib/defaults';
 
 /**
@@ -32,6 +32,7 @@ export const getFooter = cache(() => settingOr<FooterContent>('footer', DEFAULT_
 export const getCta = cache(() => settingOr<CtaContent>('cta', DEFAULT_CTA));
 export const getResults = cache(() => settingOr<ResultsContent>('results', DEFAULT_RESULTS));
 export const getIntro = cache(() => settingOr<IntroContent>('intro', DEFAULT_INTRO));
+export const getCv = cache(() => settingOr<CvContent>('cv', DEFAULT_CV));
 
 export const getServices = cache(async (): Promise<ServiceItem[]> => {
   try {

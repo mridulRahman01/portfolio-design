@@ -16,7 +16,7 @@ function Headline({ text, accent }: { text: string; accent: string }) {
   );
 }
 
-export function Hero({ data, socials }: { data: HeroContent; socials: SocialItem[] }) {
+export function Hero({ data, socials, cvUrl }: { data: HeroContent; socials: SocialItem[]; cvUrl?: string }) {
   const heroRef  = useRef<HTMLElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
 
@@ -74,7 +74,12 @@ export function Hero({ data, socials }: { data: HeroContent; socials: SocialItem
                   </svg>
                 </span>
               </a>
-              <a href={data.secondaryCtaHref} className="btn btn-ghost" data-magnetic="">
+              <a
+                href={cvUrl || data.secondaryCtaHref}
+                className="btn btn-ghost"
+                data-magnetic=""
+                {...(cvUrl ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+              >
                 {data.secondaryCtaLabel}{' '}
                 <span className="ico">
                   <svg viewBox="0 0 24 24" width="16" height="16" fill="none" aria-hidden="true">

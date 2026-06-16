@@ -6,7 +6,9 @@ function Title({ text, accent }: { text: string; accent: string }) {
   return (<>{before}<span className="green">{accent}</span>{rest.join(accent)}</>);
 }
 
-export function CTA({ data }: { data: CtaContent }) {
+export function CTA({ data, cvUrl }: { data: CtaContent; cvUrl?: string }) {
+  const primaryHref = cvUrl || data.primaryHref;
+  const primaryExternal = !!cvUrl || data.primaryHref.startsWith('http');
   return (
     <section className="cta">
       <div className="container">
@@ -31,8 +33,8 @@ export function CTA({ data }: { data: CtaContent }) {
             </div>
           </div>
           <div className="cta-actions">
-            <a href={data.primaryHref} className="btn btn-primary" data-magnetic=""
-              {...(data.primaryHref.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>
+            <a href={primaryHref} className="btn btn-primary" data-magnetic=""
+              {...(primaryExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>
               {data.primaryLabel}{' '}
               <span className="ico">
                 <svg viewBox="0 0 24 24" width="17" height="17" fill="none" aria-hidden="true">
