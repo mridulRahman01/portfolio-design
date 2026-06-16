@@ -13,12 +13,15 @@ import {
 /* ═══════════════════════════════════════════════════════════════
    Config
 ══════════════════════════════════════════════════════════════ */
-const TOTAL  = 42;
+// Play only frames 31 → 41 of the sequence
+const FRAME_START = 31;
+const FRAME_END   = 41;
+const TOTAL  = FRAME_END - FRAME_START + 1; // 11 frames
 const BG     = '#121212';
 const HEIGHT = '500vh';
 
 function framePath(i: number) {
-  return `/frames/frame_${String(i).padStart(2, '0')}.webp`;
+  return `/frames/frame_${String(FRAME_START + i).padStart(2, '0')}.webp`;
 }
 const PATHS = Array.from({ length: TOTAL }, (_, i) => framePath(i));
 
@@ -67,7 +70,6 @@ export function ScrollSequence() {
   const canvasRef   = useRef<HTMLCanvasElement>(null);
   const imagesRef   = useRef<HTMLImageElement[]>([]);
   const lastIdx     = useRef(-1);
-  const frameNumRef = useRef<HTMLSpanElement>(null);
 
   const [loadedCount, setLoadedCount] = useState(0);
   const [ready, setReady]             = useState(false);
@@ -155,10 +157,6 @@ export function ScrollSequence() {
   useMotionValueEvent(frameIndex, 'change', (v) => {
     if (!ready) return;
     draw(v);
-    const i = Math.max(0, Math.min(TOTAL - 1, Math.round(v)));
-    if (frameNumRef.current) {
-      frameNumRef.current.textContent = String(i).padStart(2, '0');
-    }
   });
 
   /* ── Draw frame 0 once preload finishes ── */
@@ -319,12 +317,6 @@ export function ScrollSequence() {
         {/* ── HUD top-left — minimal branding ── */}
         <div className="absolute top-6 left-6 z-10 pointer-events-none select-none">
           <span className="font-mono text-[9px] tracking-[0.32em] uppercase text-white/16">A.H. Portfolio</span>
-        </div>
-
-        {/* ── HUD top-right — frame counter ── */}
-        <div className="absolute top-6 right-6 z-10 font-mono text-[9px] tracking-[0.24em] uppercase text-right pointer-events-none select-none">
-          <span ref={frameNumRef} className="text-[#00F5B8]/70">00</span>
-          <span className="text-white/16"> / {String(TOTAL - 1).padStart(2, '0')}</span>
         </div>
 
         {/* ── Vertical progress track ── */}

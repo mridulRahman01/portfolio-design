@@ -92,6 +92,8 @@ export type SkillGroupItem = {
 
 export type SocialItem = { platform: string; url: string };
 
+export type IntroContent = { enabled: boolean };
+
 export type ResultsContent = {
   eyebrow: string;
   title: string;
@@ -330,6 +332,8 @@ export const DEFAULT_SKILL_GROUPS: SkillGroupItem[] = [
     ],
   },
 ];
+
+export const DEFAULT_INTRO: IntroContent = { enabled: true };
 
 export const DEFAULT_RESULTS: ResultsContent = {
   eyebrow: 'Past Work',
