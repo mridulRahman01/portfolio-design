@@ -4,8 +4,10 @@ import { useRef, useState } from 'react';
 import { inputCls } from '@/components/admin/ui';
 
 /**
- * URL input + one-click Cloudinary upload + live preview.
- * The client never has to leave the form to add a picture.
+ * Two ways to add a picture, both built in:
+ *   1. Paste an image URL into the input.
+ *   2. Click "Upload" to pick a file from the device (stored on Supabase).
+ * Shows a live preview either way.
  */
 export function ImageField({ label, value, onChange, error, hint, folder = 'blog' }: {
   label: string;

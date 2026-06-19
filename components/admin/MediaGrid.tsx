@@ -86,7 +86,7 @@ export function MediaGrid({ items, folders, activeFolder, q }: {
             <div className="relative aspect-[4/3] bg-black/40">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src={m.url.replace('/upload/', '/upload/c_fill,w_400,q_auto,f_auto/')}
+                src={m.url}
                 alt={m.alt ?? m.publicId}
                 className="h-full w-full object-cover !pointer-events-auto"
                 loading="lazy"

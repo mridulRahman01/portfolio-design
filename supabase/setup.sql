@@ -227,10 +227,17 @@ begin
 end $$;
 
 -- ── Public storage bucket for the CV/resume ──────────────────────
--- The "Book a Free Strategy Call" button opens the file uploaded here.
+-- The "My CV" button opens the file uploaded here.
 insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
 values ('cv', 'cv', true, 15728640,
         array['application/pdf','image/png','image/jpeg','image/webp'])
+on conflict (id) do nothing;
+
+-- ── Public storage bucket for media (device image uploads) ───────
+-- Backs the "Upload" button on every image field + the Media Library.
+insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+values ('media', 'media', true, 10485760,
+        array['image/png','image/jpeg','image/webp','image/gif','image/svg+xml','image/avif'])
 on conflict (id) do nothing;
 
 -- ════════════════════════════════════════════════════════════════
