@@ -38,7 +38,7 @@ export default async function Home() {
         <Tools />
         <Testimonials items={testimonials} />
         <Blog posts={posts} />
-        <CTA data={cta} cvUrl={cv.url} />
+        <CTA data={cta} />
         <Footer data={footer} socials={socials} />
       </div>
     </>

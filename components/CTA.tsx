@@ -6,9 +6,9 @@ function Title({ text, accent }: { text: string; accent: string }) {
   return (<>{before}<span className="green">{accent}</span>{rest.join(accent)}</>);
 }
 
-export function CTA({ data, cvUrl }: { data: CtaContent; cvUrl?: string }) {
-  const primaryHref = cvUrl || data.primaryHref;
-  const primaryExternal = !!cvUrl || data.primaryHref.startsWith('http');
+export function CTA({ data }: { data: CtaContent }) {
+  const primaryHref = data.primaryHref;
+  const primaryExternal = data.primaryHref.startsWith('http');
   return (
     <section className="cta">
       <div className="container">

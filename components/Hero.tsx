@@ -75,16 +75,17 @@ export function Hero({ data, socials, cvUrl }: { data: HeroContent; socials: Soc
                 </span>
               </a>
               <a
-                href={cvUrl || data.secondaryCtaHref}
+                href={cvUrl || '#'}
                 className="btn btn-ghost"
                 data-magnetic=""
-                {...(cvUrl ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                target="_blank"
+                rel="noopener noreferrer"
+                download=""
               >
                 {data.secondaryCtaLabel}{' '}
                 <span className="ico">
                   <svg viewBox="0 0 24 24" width="16" height="16" fill="none" aria-hidden="true">
-                    <rect x="3" y="5" width="18" height="16" rx="3" stroke="currentColor" strokeWidth="1.8" />
-                    <path d="M3 9h18M8 3v4M16 3v4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+                    <path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 </span>
               </a>

@@ -126,7 +126,7 @@ export const DEFAULT_HERO: HeroContent = {
     'I partner with brands to turn paid traffic into predictable profit — high-converting funnels, disciplined media buying, and relentless conversion optimization. Every campaign is engineered around one number: your ROI.',
   primaryCtaLabel: 'See Real Results',
   primaryCtaHref: '#cases',
-  secondaryCtaLabel: 'Book a Free Strategy Call',
+  secondaryCtaLabel: 'My CV',
   secondaryCtaHref: '#footer',
   trustLabel: 'Campaigns delivered in',
   industries: ['Health & Wellness', 'Finance', 'E-commerce', 'SaaS'],
